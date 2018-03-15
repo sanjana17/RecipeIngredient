@@ -4,10 +4,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ViewRecipeComponent
   ],
   imports: [
     BrowserModule,
