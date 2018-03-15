@@ -44,12 +44,10 @@ export class SearchComponent implements OnInit {
       this.sendRecipes.emit(result);
     });
   }
-  removeSearchBox(){
-    const inputLength = this.inputs.length;
-    const lastIndex = Number(this.inputs[inputLength - 1]);
-    if (lastIndex > 0) {
+  removeSearchBox(index) {
+    if (index > 0) {
       this.itemsGroup = this.myForm.get('search') as FormArray;
-      this.itemsGroup.removeAt(lastIndex);
+      this.itemsGroup.removeAt(index);
       this.inputs.pop();
     }
   }

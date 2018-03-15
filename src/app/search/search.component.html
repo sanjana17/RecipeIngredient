@@ -2,10 +2,9 @@
   <form [formGroup]="myForm" novalidate class="container-fluid text-center">
     <div  formArrayName="search" *ngFor="let item of myForm.get('search').controls; let i = index" class="row">
       <div class="col-md-2"></div>
-      <div [formGroupName]="i" class="col-md-8">
-        <span>
-          <input type="text" class="form-control input-bottom" id="search-{{i}}" formControlName="name">
-        </span>
+      <div [formGroupName]="i" class="col-md-8 input-group">
+          <input type="text" class="form-control input-bottom" id="search-{{i}}" placeholder="ingredient {{i+1}}" formControlName="name">
+        <span class="input-group-btn" *ngIf="i > 0"><button class="btn btn-danger" type="button" (click)="removeSearchBox(i)">Remove</button></span>
       </div>
     </div>
   </form>
@@ -14,7 +13,6 @@
     <div class="col-md-6 text-center">
       <button (click)="addSearchBox()" class="btn btn-primary">Add New</button>
       <button (click)="search()" class="btn btn-primary">Search</button>
-      <button (click)="removeSearchBox()" class="btn btn-primary">Remove</button>
     </div>
   </div>
 </div>
