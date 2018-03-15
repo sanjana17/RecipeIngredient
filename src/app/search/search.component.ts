@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
 import {RecipeService} from '../recipe.service';
+import {RecipeModel} from '../Models/recipeModel';
 
 @Component({
   selector: 'app-search',
@@ -8,8 +9,8 @@ import {RecipeService} from '../recipe.service';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  @Output() sendRecipes = new EventEmitter();
-
+  @Output() sendRecipes = new EventEmitter<RecipeModel>();
+  recipes: RecipeModel;
   inputs: String[]= ['0'];
   ingredients: String;
   public myForm: FormGroup;
@@ -40,8 +41,16 @@ export class SearchComponent implements OnInit {
   search() {
     const values = this.myForm;
     this.ingredients = '';
+    this.myForm.controls.search.value.forEach(function(value){
+      this.ingredients += value.name;
+    }.bind(this));
     this.recipeService.getRecipe(this.ingredients).subscribe(result => {
-      this.sendRecipes.emit(result);
+      const count = result['count'] || 0;
+      const recipes = result['hits'] || []
+      this.sendRecipes.emit({
+        Recipes: recipes,
+        count: count
+      });
     });
   }
   removeSearchBox(index) {

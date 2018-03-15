@@ -19,6 +19,6 @@ export class AppComponent {
 //   recipeObjects: result['hits']
 // }
   sendRecipes(result) {
-    console.log(result);
+    this.recipe = result;
   }
 }
