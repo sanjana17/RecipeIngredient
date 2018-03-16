@@ -14,6 +14,7 @@ export class SearchComponent implements OnInit {
   inputs: String[]= ['0'];
   ingredients: String;
   public myForm: FormGroup;
+  collapsed: Boolean = true;
   itemsGroup: FormArray;
   constructor(private fb: FormBuilder, private recipeService: RecipeService) { }
 
@@ -81,5 +82,9 @@ export class SearchComponent implements OnInit {
       this.itemsGroup.removeAt(index);
       this.inputs.pop();
     }
+  }
+
+  toggleCollapse() {
+    this.collapsed = !this.collapsed;
   }
 }
