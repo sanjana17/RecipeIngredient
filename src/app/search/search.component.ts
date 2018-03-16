@@ -41,10 +41,12 @@ export class SearchComponent implements OnInit {
   search() {
     const values = this.myForm;
     this.ingredients = '';
-    this.myForm.controls.search.value.forEach(function(value){
-      this.ingredients += value.name;
-    }.bind(this));
-    this.recipeService.getRecipe(this.ingredients).subscribe(result => {
+    let ingredients = this.myForm.controls.search.value.reduce(function(ingredients, value){
+        ingredients.push(value.name);
+        return ingredients;
+    }.bind(this), []);
+    ingredients = ingredients.concat(',');
+    this.recipeService.getRecipe(ingredients).subscribe(result => {
       const count = result['count'] || 0;
       const recipes = result['hits'] || []
       this.sendRecipes.emit({
