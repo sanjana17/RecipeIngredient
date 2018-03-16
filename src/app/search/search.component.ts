@@ -48,12 +48,32 @@ export class SearchComponent implements OnInit {
     ingredients = ingredients.concat(',');
     this.recipeService.getRecipe(ingredients).subscribe(result => {
       const count = result['count'] || 0;
-      const recipes = result['hits'] || []
+      const recipes = this.getRecipes(result['hits']);
       this.sendRecipes.emit({
         Recipes: recipes,
         count: count
       });
     });
+  }
+  getRecipes(recipes){
+    let recipesList = recipes.reduce((recipesList, recipe) => {
+        let tempRecipe = {};
+        tempRecipe['ingredients'] = recipe.recipe.ingredientLines;
+        tempRecipe['calories'] = recipe.recipe.calories;
+        tempRecipe['nutrients'] = this.getNutrients(recipe.recipe.totalNutrients);
+        tempRecipe['dailyNutrients'] = this.getNutrients(recipe.recipe.totalDaily);
+        recipesList.push(tempRecipe);
+        return recipesList;
+    }, []);
+    return recipesList;
+  }
+  getNutrients(nutrients){
+    const nutrientsList = {};
+    Object.keys(nutrients).forEach(nutrientObj => {
+      const nutrient = nutrients[nutrientObj];
+      nutrientsList[nutrient['label']] = nutrient['quantity'].toString() + ' ' + nutrient['unit'];
+    });
+    return nutrientsList;
   }
   removeSearchBox(index) {
     if (index > 0) {
