@@ -81,6 +81,9 @@ export class SearchComponent implements OnInit {
       this.itemsGroup = this.myForm.get('search') as FormArray;
       this.itemsGroup.removeAt(index);
       this.inputs.pop();
+      if(this.itemsGroup.length < 5 && this.collapsed){
+        this.collapsed = false;
+      }
     }
   }
 

@@ -15,7 +15,7 @@
       <button (click)="search()" class="btn btn-primary">Search</button>
     </div>
   </div>
-  <div class="row text-center chevron" *ngIf="myForm.get('search').controls.length > 4">
+  <div class="row text-center chevron" *ngIf="myForm.get('search').controls.length > 2">
     <div class="col-md-3"></div>
     <div class="col-md-6">
       <a class="glyph" *ngIf=!collapsed (click)="toggleCollapse(collapsed)">See more</a>
