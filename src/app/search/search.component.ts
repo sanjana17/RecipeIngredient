@@ -10,6 +10,7 @@ import {RecipeModel} from '../Models/recipeModel';
 })
 export class SearchComponent implements OnInit {
   @Output() sendRecipes = new EventEmitter<RecipeModel>();
+
   recipes: RecipeModel;
   inputs: String[]= ['0'];
   ingredients: String;
@@ -63,16 +64,22 @@ export class SearchComponent implements OnInit {
         tempRecipe['calories'] = recipe.recipe.calories;
         tempRecipe['nutrients'] = this.getNutrients(recipe.recipe.totalNutrients);
         tempRecipe['dailyNutrients'] = this.getNutrients(recipe.recipe.totalDaily);
+        tempRecipe['image'] = recipe.recipe.image;
+        tempRecipe['title'] = recipe.recipe.label;
+        tempRecipe['recipieUrl'] = recipe.recipe.url;
         recipesList.push(tempRecipe);
         return recipesList;
     }, []);
     return recipesList;
   }
   getNutrients(nutrients){
-    const nutrientsList = {};
+    const nutrientsList = [];
     Object.keys(nutrients).forEach(nutrientObj => {
+      const tempObj = [];
       const nutrient = nutrients[nutrientObj];
-      nutrientsList[nutrient['label']] = nutrient['quantity'].toString() + ' ' + nutrient['unit'];
+      tempObj.push(nutrient['label']);
+      tempObj.push(nutrient['quantity'].toString() + ' ' + nutrient['unit']);
+      nutrientsList.push(tempObj);
     });
     return nutrientsList;
   }

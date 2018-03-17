@@ -11,6 +11,7 @@ import { NgModel } from '@angular/forms';
 export class AppComponent {
   title = 'app';
   ingredient = '';
+  spinnerEnable = false;
   public recipe: Object;
 
   constructor(private recipeService: RecipeService) {}
@@ -21,4 +22,5 @@ export class AppComponent {
   sendRecipes(result) {
     this.recipe = result;
   }
+
 }

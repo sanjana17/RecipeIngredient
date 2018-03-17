@@ -1,0 +1,22 @@
+.border-round{
+  border: solid gray 0.1em ;
+  -webkit-border-radius: 3em;
+  -moz-border-radius: 3em;
+  border-radius: 0.4em;
+  margin-bottom: 0.3em;
+  margin-top: 0.3em;
+  margin-right: 2em;
+  margin-left:2em;
+  padding: 1em;
+}
+.border-round > img{
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+}
+.media-left{
+  margin-right: 0.5em;
+}
+.btn-danger.mar-right{
+  margin-right: 1em;
+}

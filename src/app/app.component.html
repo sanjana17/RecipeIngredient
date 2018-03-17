@@ -1,7 +1,7 @@
-<div class="text-center jumbotron">
-  <h2 class="input-bottom">Ingredient - Recipe Search</h2>
+<div class="text-center pad-top jumbotron">
+  <h2 class="input-bottom page-header">Ingredient Recipe Search</h2>
   <app-search (sendRecipes)="sendRecipes($event)"></app-search>
 </div>
 <div>
-  <app-view-recipe [recipes]="recipe"></app-view-recipe>
+  <app-view-recipe [recipes]="recipe" ></app-view-recipe>
 </div>
