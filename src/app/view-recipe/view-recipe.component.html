@@ -6,11 +6,6 @@
     </div>
     <div class="media-body col-md-5">
       <h4 class="media-heading">{{hit.title}}</h4>
-      <ul >
-        <li *ngFor="let ingredient of hit.ingredients| slice:0:5; let i=index">
-          {{ingredient}}
-        </li>
-      </ul>
     </div>
     <div class="row">
         <button class="btn btn-danger mar-right " ngbTooltip="View Nutrients" data-toggle="modal" [attr.data-target]="'#nutrientModal-'+in"><i class="material-icons">info_outline</i></button>
@@ -42,6 +37,13 @@
       <a href="{{hit.recipieUrl}}" target="_blank">
         <button class="btn btn-success" ngbTooltip="View Website"><i class="material-icons">visibility</i></button></a>
 </div>
+  </div>
+  <div class="media-row">
+    <ul>
+      <li *ngFor="let ingredient of hit.ingredients| slice:0:5; let i=index">
+        {{ingredient}}
+      </li>
+    </ul>
   </div>
 </div>
 
