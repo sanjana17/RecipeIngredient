@@ -6,7 +6,8 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchComponent } from './search/search.component';
 import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent, SearchComponent, ViewRecipeComponent
@@ -16,6 +17,8 @@ import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    MatTooltipModule,
+    BrowserAnimationsModule,
     NgbModule
   ],
   providers: [],

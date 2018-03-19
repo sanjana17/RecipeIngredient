@@ -1,4 +1,4 @@
 export class RecipeModel {
-  Recipes: Object[] = [];
+  RecipeObject: Object[] = [];
   count: Number = 0;
 }

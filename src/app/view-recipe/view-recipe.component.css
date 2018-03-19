@@ -5,8 +5,7 @@
   border-radius: 0.4em;
   margin-bottom: 0.3em;
   margin-top: 0.3em;
-  margin-right: 2em;
-  margin-left:2em;
+  margin-left:3em;
   padding: 1em;
 }
 .border-round > img{
@@ -15,8 +14,12 @@
   border-radius: 0.2em;
 }
 .media-left{
-  margin-right: 0.5em;
 }
 .btn-danger.mar-right{
   margin-right: 1em;
+}
+.tooltip-host {
+  display: inline-flex;
+  align-items: center;
+  margin: 50px;
 }

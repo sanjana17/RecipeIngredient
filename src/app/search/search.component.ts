@@ -52,7 +52,7 @@ export class SearchComponent implements OnInit {
       const count = result['count'] || 0;
       const recipes = this.getRecipes(result['hits']);
       this.sendRecipes.emit({
-        Recipes: recipes,
+        RecipeObject: recipes,
         count: count
       });
     });
