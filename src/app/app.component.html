@@ -1,7 +1,7 @@
-<h2>Ingredient - Recipe Search</h2>
-  <input placeholder="enter an ingredient" [(ngModel)]="ingredient">
-  <button (click)="getRecipeForIngredient()">Search</button>
-
-
-
-
+<div class="text-center jumbotron">
+  <h2 class="input-bottom">Ingredient - Recipe Search</h2>
+  <app-search (sendRecipes)="sendRecipes($event)"></app-search>
+</div>
+<div>
+  <app-view-recipe [recipes]="recipe"></app-view-recipe>
+</div>

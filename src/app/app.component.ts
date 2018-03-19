@@ -14,9 +14,11 @@ export class AppComponent {
   public recipe: Object;
 
   constructor(private recipeService: RecipeService) {}
-  getRecipeForIngredient() {
-    this.recipeService.getRecipe(this.ingredient).subscribe(result => this.recipe = {
-      count: result['count']
-    });
+// {
+//   count: result['count'],
+//   recipeObjects: result['hits']
+// }
+  sendRecipes(result) {
+    this.recipe = result;
   }
 }
