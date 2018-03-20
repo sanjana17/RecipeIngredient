@@ -1,0 +1,49 @@
+.border-round{
+  border: solid gray 0.1em ;
+  -webkit-border-radius: 3em;
+  -moz-border-radius: 3em;
+  border-radius: 0.4em;
+  margin-bottom: 0.3em;
+  margin-top: 0.3em;
+  margin-left:1em;
+  padding: 1em;
+}
+.border-round > img{
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  border-radius: 0.2em;
+}
+.media-left{
+}
+.btn-danger.mar-right{
+  margin-right: 1em;
+}
+.mar-left{
+  margin-left: 1em;
+}
+.tooltip-host {
+  display: inline-flex;
+  align-items: center;
+  margin: 50px;
+}
+@media(min-width: 992px) {
+  .pad-left{
+    padding-left: 4em;
+  }
+  .border-round{
+    margin-left: 0;
+    margin-left:3em;
+  }
+
+}
+@media (min-width: 1024px) and (max-width: 1250px){
+    .media-body{
+      margin-left: 2em;
+    }
+  .mar-left {
+    margin-left: 0;
+  }
+}
+.btn{
+  margin-bottom: 0.5em;
+}

@@ -11,7 +11,7 @@ describe('SearchComponent', () => {
       declarations: [ SearchComponent ]
     })
     .compileComponents();
-  }));
+  }));  
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchComponent);
@@ -21,6 +21,11 @@ describe('SearchComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  it('should check falsy of search method', () => {
+    fixture = TestBed.createComponent(SearchComponent);
+    component = fixture.componentInstance;
+    expect(component.addSearchBox).toBeDefined(true);
   });
   it('should check falsy of search method', () => {
     fixture = TestBed.createComponent(SearchComponent);
