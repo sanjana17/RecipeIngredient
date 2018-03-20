@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
 import {RecipeService} from '../recipe.service';
 import {RecipeModel} from '../Models/recipeModel';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 @Component({
   selector: 'app-search',
@@ -17,7 +18,7 @@ export class SearchComponent implements OnInit {
   public myForm: FormGroup;
   collapsed: Boolean = true;
   itemsGroup: FormArray;
-  constructor(private fb: FormBuilder, private recipeService: RecipeService) { }
+  constructor(private fb: FormBuilder, private recipeService: RecipeService, private spinnerService: Ng4LoadingSpinnerService) { }
 
   ngOnInit() {
     this.myForm = this.fb.group({
@@ -49,6 +50,7 @@ export class SearchComponent implements OnInit {
     }), []);
     ingredients = ingredients.concat(',');
     this.recipeService.getRecipe(ingredients).subscribe(result => {
+      this.spinnerService.hide();
       const count = result['count'] || 0;
       const recipes = this.getRecipes(result['hits']);
       this.sendRecipes.emit({

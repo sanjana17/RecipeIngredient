@@ -10,6 +10,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
 import { RouterModule, Routes } from '@angular/router';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+
 const appRoutes = [
   {path : 'recipeSearch', component: RecipeSearchComponent}
 ];
@@ -28,6 +30,7 @@ const appRoutes = [
     RouterModule.forRoot(
       appRoutes, {useHash: true}
     ),
+    Ng4LoadingSpinnerModule.forRoot(),
     NgbModule
   ],
   exports: [ViewRecipeComponent, SearchComponent],
