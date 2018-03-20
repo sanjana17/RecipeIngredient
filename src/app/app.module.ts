@@ -9,6 +9,11 @@ import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
+import { RouterModule, Routes } from '@angular/router';
+const appRoutes = [
+  {path : 'recipeSearch', component: RecipeSearchComponent}
+];
+
 @NgModule({
   declarations: [
     AppComponent, SearchComponent, ViewRecipeComponent, RecipeSearchComponent
@@ -20,6 +25,9 @@ import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
     ReactiveFormsModule,
     MatTooltipModule,
     BrowserAnimationsModule,
+    RouterModule.forRoot(
+      appRoutes
+    ),
     NgbModule
   ],
   exports: [ViewRecipeComponent, SearchComponent],
