@@ -8,9 +8,10 @@ import { SearchComponent } from './search/search.component';
 import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
 @NgModule({
   declarations: [
-    AppComponent, SearchComponent, ViewRecipeComponent
+    AppComponent, SearchComponent, ViewRecipeComponent, RecipeSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -21,6 +22,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     NgbModule
   ],
+  exports: [ViewRecipeComponent, SearchComponent],
   providers: [],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
