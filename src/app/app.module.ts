@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchComponent } from './search/search.component';
 import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatButtonModule} from '@angular/material/button';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -26,6 +27,7 @@ const appRoutes = [
     FormsModule,
     ReactiveFormsModule,
     MatTooltipModule,
+    MatButtonModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(
       appRoutes, {useHash: true}

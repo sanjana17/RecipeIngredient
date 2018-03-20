@@ -49,3 +49,9 @@
   </div>
 </div>
 
+  <!--Scroll to top-->
+  <div class="scroll-to-top" [ngClass]="{'show-scroll': navIsFixed}">
+    <button mat-mini-fab color="primary" (click)="scrollToTop()">
+      <i class="material-icons">arrow_upward</i>
+    </button>
+  </div>
