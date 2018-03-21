@@ -1,3 +1,16 @@
+<div class="row pad-left" *ngIf="recipes.RecipeObject.length > 0">
+  <!-- Example single danger button -->
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Relavence
+    </button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" (click)="getFilterResults('Relavence')">Relavence</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" (click)="getFilterResults(i)" *ngFor="let i of getFilterList()">{{i}}</a>
+    </div>
+  </div>
+</div>
 <div class="row pad-left">
 <div *ngFor="let hit of recipes.RecipeObject; let in = index" class="border-round col-md-5" >
   <div class="media row">

@@ -12,7 +12,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
 import { RouterModule, Routes } from '@angular/router';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
-import { IngredientCheckDirective } from './ingredient-check.directive';
+import { IngredientCheckDirective } from './directives/validators/ingredient-check.directive';
 
 const appRoutes = [
   {path: '', redirectTo: 'recipeSearch', pathMatch: 'full'},

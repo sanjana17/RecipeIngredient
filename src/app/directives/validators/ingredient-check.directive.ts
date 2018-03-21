@@ -1,8 +1,8 @@
 import {AbstractControl, ValidatorFn} from '@angular/forms';
 
 export function IngredientCheckDirective(nameRe: RegExp): ValidatorFn {
-  return (control: AbstractControl): {[key: string]: any} => {
+  return (control: AbstractControl): any => {
     const forbidden = nameRe.test(control.value);
-    return forbidden ? {'forbiddenName': {value: control.value}} : null;
+    return forbidden ? control.value : null;
   };
 }

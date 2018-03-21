@@ -12,8 +12,7 @@ export class RecipeSearchComponent implements OnInit {
   public recipe: RecipeModel;
   constructor(private recipeService: RecipeService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
   sendRecipes(result) {
     this.recipe = result;
   }

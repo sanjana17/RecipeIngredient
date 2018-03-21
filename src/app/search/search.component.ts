@@ -3,7 +3,7 @@ import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@ang
 import {RecipeService} from '../recipe.service';
 import {RecipeModel} from '../Models/recipeModel';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
-import {IngredientCheckDirective} from '../ingredient-check.directive';
+import {IngredientCheckDirective} from '../directives/validators/ingredient-check.directive';
 
 
 @Component({

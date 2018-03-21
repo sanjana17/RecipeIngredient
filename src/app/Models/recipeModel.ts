@@ -1,16 +1,19 @@
 export class RecipeModel {
-  RecipeObject: Object[] = [];
-  count: Number = 0;
-  originalList: any;
+  RecipeObject?: Object[] = [];
+  count?: Number = 0;
+  originalList?: any;
   constructor(private recipes) {
-    this.RecipeObject = recipes.RecipeObject;
-    this.count = recipes.count;
-    this.originalList = recipes.originalList;
+    if (recipes) {
+      this.RecipeObject = recipes.RecipeObject;
+      this.count = recipes.count;
+      this.originalList = recipes.originalList;
+    }
   }
   getFilterList(){
     const recipeResult = this.originalList;
+    return [];
   }
-  getFilteredItem(){
+  getFilteredItem(filterType){
     const recipeResult = this.originalList;
   }
 }

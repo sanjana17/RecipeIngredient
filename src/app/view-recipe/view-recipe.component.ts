@@ -3,6 +3,7 @@ import {RecipeService} from '../recipe.service';
 import {NgbTooltipConfig} from '@ng-bootstrap/ng-bootstrap';
 import {Inject, HostListener } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
+import {RecipeModel} from "../Models/recipeModel";
 @Component({
   selector: 'app-view-recipe',
   templateUrl: './view-recipe.component.html',
@@ -10,13 +11,21 @@ import { DOCUMENT } from '@angular/platform-browser';
   providers: [RecipeService, NgbTooltipConfig]
 })
 export class ViewRecipeComponent implements OnInit {
-  @Input() recipes;
+  @Input() recipes: RecipeModel;
   ingredient = '';
   navIsFixed: boolean;
   constructor(private recipeService: RecipeService, @Inject(DOCUMENT) private document: Document) { }
 
   ngOnInit() {
-    this.recipes = [];
+    this.recipes = new RecipeModel({});
+  }
+
+  getFilterList() {
+    return this.recipes.getFilterList();
+  }
+
+  getFilterResults(filterType){
+    this.recipes.getFilteredItem(filterType);
   }
   @HostListener('window:scroll', [])
   onWindowScroll() {

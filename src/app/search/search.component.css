@@ -10,3 +10,6 @@
 .danger{
   color:red;
 }
+.ng-invalid{
+  border-color: red;
+}
