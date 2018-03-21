@@ -6,3 +6,4 @@ export function IngredientCheckDirective(nameRe: RegExp): ValidatorFn {
     return forbidden ? { 'invalidChar' : {vlaue: control.value} } : null;
   };
 }
+

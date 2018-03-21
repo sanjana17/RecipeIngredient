@@ -1,7 +1,7 @@
 <div >
   <p *ngIf="!myForm.valid" class="text-center danger">please use only alphabets</p>
   <form [formGroup]="myForm" novalidate class="container-fluid text-center" >
-    <div  formArrayName="search" *ngFor="let item of myForm.get('search').controls; let i = index" class="row">
+    <div  formArrayName="search" *ngFor="let item of myForm.get('search')['controls']; let i = index" class="row">
       <div class="col-md-2"></div>
       <div [formGroupName]="i" class="col-md-8 input-group" [hidden]="i > 1 && !collapsed">
           <input type="text" class="form-control input-bottom" id="search-{{i}}" placeholder="ingredient {{i+1}}" formControlName="name">
@@ -16,7 +16,7 @@
       <button (click)="search()" [disabled]="!myForm.valid" class="btn btn-primary">Search</button>
     </div>
   </div>
-  <div class="row text-center chevron" *ngIf="myForm.get('search').controls.length > 2">
+  <div class="row text-center chevron" *ngIf="myForm.get('search')['controls'].length > 2">
     <div class="col-md-3"></div>
     <div class="col-md-6">
       <button class="glyph btn btn-default" *ngIf=!collapsed (click)="toggleCollapse(collapsed)"><i class="fas fa-angle-down fa-2x"></i></button>
