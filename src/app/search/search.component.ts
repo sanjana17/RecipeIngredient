@@ -55,10 +55,11 @@ export class SearchComponent implements OnInit {
       this.spinnerService.hide();
       const count = result['count'] || 0;
       const recipes = this.getRecipes(result['hits']);
-      this.sendRecipes.emit({
+      this.sendRecipes.emit(new RecipeModel({
         RecipeObject: recipes,
-        count: count
-      });
+        count: count,
+        originalList: result
+      }));
     });
   }
   getRecipes(recipes){
