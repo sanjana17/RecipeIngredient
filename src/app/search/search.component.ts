@@ -3,6 +3,8 @@ import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@ang
 import {RecipeService} from '../recipe.service';
 import {RecipeModel} from '../Models/recipeModel';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import {IngredientCheckDirective} from '../ingredient-check.directive';
+
 
 @Component({
   selector: 'app-search',
@@ -38,7 +40,7 @@ export class SearchComponent implements OnInit {
 
   private createItem() {
     return this.fb.group({
-      name: ''
+      name: ['', Validators.compose([IngredientCheckDirective(/[^a-zA-Z ]/g)])]
     });
   }
   search() {
@@ -80,7 +82,7 @@ export class SearchComponent implements OnInit {
       const tempObj = [];
       const nutrient = nutrients[nutrientObj];
       tempObj.push(nutrient['label']);
-      tempObj.push(nutrient['quantity'].toString() + ' ' + nutrient['unit']);
+      tempObj.push(Number(nutrient['quantity'].toString()).toFixed(2) + ' ' + nutrient['unit']);
       nutrientsList.push(tempObj);
     });
     return nutrientsList;
