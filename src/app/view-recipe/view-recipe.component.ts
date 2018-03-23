@@ -8,16 +8,21 @@ import {RecipeModel} from "../Models/recipeModel";
   selector: 'app-view-recipe',
   templateUrl: './view-recipe.component.html',
   styleUrls: ['./view-recipe.component.css'],
+  host: {'(window:scroll)' : 'onWindowScroll()'},
   providers: [RecipeService, NgbTooltipConfig]
 })
 export class ViewRecipeComponent implements OnInit {
   @Input() recipes: RecipeModel;
   ingredient = '';
   navIsFixed: boolean;
+  filterValue: String = 'Filter';
+  sortValue: String = 'Sort';
   constructor(private recipeService: RecipeService, @Inject(DOCUMENT) private document: Document) { }
 
   ngOnInit() {
-    this.recipes = new RecipeModel({});
+    this.recipes = new RecipeModel({
+      RecipeObject: []
+    });
   }
 
   getFilterList() {
@@ -25,9 +30,18 @@ export class ViewRecipeComponent implements OnInit {
   }
 
   getFilterResults(filterType){
+    this.filterValue = filterType;
     this.recipes.getFilteredItem(filterType);
   }
-  @HostListener('window:scroll', [])
+  getSortResults(sortType) {
+    const sortTypeMap = {
+      'ASC': 'Low to High',
+      'DESC': 'High to Low'
+    };
+    this.sortValue = sortTypeMap[sortType];
+    this.recipes.getSortResults(sortType, this.filterValue);
+  }
+
   onWindowScroll() {
     if (!(window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop > 100)) {
       if (this.navIsFixed && window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop < 10) {

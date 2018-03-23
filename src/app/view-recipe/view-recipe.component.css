@@ -11,6 +11,17 @@
 .media.row{
   margin-bottom: 1em;
 }
+.pad-left-2{
+  padding-left: 2em;
+}
+.label-centered{
+  margin: auto;
+  width: 50%;
+  padding: 1px;
+}
+.filterGroup{
+  margin-right: 1em;
+}
 .border-round > img{
   -webkit-border-radius: 0.2em;
   -moz-border-radius: 0.2em;
@@ -46,6 +57,9 @@
 @media(min-width: 992px) {
   .pad-left{
     padding-left: 4em;
+  }
+  .pad-left-2{
+    padding-left: 6em;
   }
   .border-round{
     margin-left: 0;

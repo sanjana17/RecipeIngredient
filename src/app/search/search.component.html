@@ -1,4 +1,4 @@
-<div >
+<div id="form-search" #formSearch>
   <p *ngIf="!myForm.valid" class="text-center danger">please use only alphabets</p>
   <form [formGroup]="myForm" novalidate class="container-fluid text-center" >
     <div  formArrayName="search" *ngFor="let item of myForm.get('search')['controls']; let i = index" class="row">

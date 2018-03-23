@@ -1,5 +1,5 @@
 <div class="text-center pad-top jumbotron">
-  <h2 class="input-bottom page-header">Ingredient Recipe Search</h2>
+  <h2 *ngIf="!hideHeader" class="input-bottom page-header">Ingredient Recipe Search</h2>
   <app-search (sendRecipes)="sendRecipes($event)"></app-search>
 </div>
 <div>
