@@ -32,7 +32,7 @@
         <div class="col-xs-12 col-sm-12 col-lg-12 mar-left mar-top mar-right">
           <div class="row">
             <app-nutrient-dialog [nutrients]="hit.nutrients"></app-nutrient-dialog>
-          <a href="{{hit.recipieUrl}}" target="_blank">
+          <a (click)="handleUrlChange(hit.recipieUrl)">
             <button mat-raised-button color="accent" class="btn btn-success" ngbTooltip="View Website"><i class="material-icons">visibility</i></button></a>
           </div>
         </div>

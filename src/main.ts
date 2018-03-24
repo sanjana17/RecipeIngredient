@@ -22,6 +22,9 @@ let app = function(){
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
     this.onDeviceReady = function() {
+      delete window.open;
+      // @ts-ignore
+      window.open = cordova.InAppBrowser.open;
       this.receivedEvent('deviceready');
     };
 

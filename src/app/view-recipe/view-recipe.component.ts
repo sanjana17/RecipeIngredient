@@ -43,6 +43,9 @@ export class ViewRecipeComponent implements OnInit {
   getFilterList() {
     return this.recipes.getFilterList();
   }
+  handleUrlChange(url){
+    window.open(url,'_blank');
+  }
 
   getFilterResults(filterType){
     this.filterValue = filterType;

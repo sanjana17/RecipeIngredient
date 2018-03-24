@@ -16,6 +16,7 @@ import {ActivatedRoute} from "@angular/router";
 export class RecipeSearchComponent implements OnInit {
   public recipe: RecipeModel;
   hideHeader: Boolean = false;
+  opened: Boolean;
   constructor(private recipeService: RecipeService,
               @Inject(DOCUMENT) private document: Document,
               public appGlobal:AppGlobal,
