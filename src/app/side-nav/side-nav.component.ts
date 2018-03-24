@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {TranslateService} from "@ngx-translate/core";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material";
 
 @Component({
   selector: 'app-side-nav',
@@ -7,9 +9,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideNavComponent implements OnInit {
 
-  constructor() { }
+  constructor(public  translate: TranslateService, public dialog: MatDialog) {
+    console.log(this.translate.getLangs());
+  }
 
   ngOnInit() {
+  }
+  openDialog(): void {
+    let dialogRef = this.dialog.open(SettingsComponent, {
+      width: '50em'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+}
+
+@Component({
+  selector: 'app-settings',
+  templateUrl: 'app-settings.html',
+})
+export class SettingsComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<SettingsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

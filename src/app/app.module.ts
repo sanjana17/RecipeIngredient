@@ -16,7 +16,7 @@ import { IngredientCheckDirective } from './directives/validators/ingredient-che
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {MatSidenavModule, MatInputModule, MatDialogModule, MatCardModule} from "@angular/material";
-import { SideNavComponent } from './side-nav/side-nav.component';
+import { SideNavComponent, SettingsComponent } from './side-nav/side-nav.component';
 import {NutrientDialogTemplate, NutrientDialogComponent} from './nutrient-dialog/nutrient-dialog.component';
 
 const appRoutes = [
@@ -28,7 +28,7 @@ export function createTranslateLoader(http: HttpClient) {
 }
 @NgModule({
   declarations: [
-    AppComponent, SearchComponent, ViewRecipeComponent, RecipeSearchComponent, SideNavComponent, NutrientDialogComponent, NutrientDialogTemplate
+    AppComponent, SearchComponent,SettingsComponent, ViewRecipeComponent, RecipeSearchComponent, SideNavComponent, NutrientDialogComponent, NutrientDialogTemplate
   ],
   imports: [
     BrowserModule,
@@ -57,7 +57,7 @@ export function createTranslateLoader(http: HttpClient) {
     NgbModule
   ],
   exports: [ViewRecipeComponent, SearchComponent, MatSidenavModule, MatInputModule, MatDialogModule,MatCardModule],
-  entryComponents: [NutrientDialogTemplate],
+  entryComponents: [NutrientDialogTemplate, SettingsComponent],
   providers: [],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

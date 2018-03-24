@@ -1,3 +1,13 @@
 .list-group-item {
   border: none;
 }
+.margin-all {
+  margin: 1em;
+
+}
+.width-nav{
+  width: 15em;
+}
+.width-full {
+  width: 100%;
+}
