@@ -13,3 +13,9 @@
 .ng-invalid{
   border-color: red;
 }
+.mat-form-field{
+  width: 100%;
+}
+.mar-bottom{
+  margin-bottom: 0.5em;
+}

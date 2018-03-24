@@ -10,3 +10,9 @@
   background-image: url('../../assets/images/header.svg');
   background-blend-mode: overlay;
 }
+.mat-drawer{
+  left: 0 !important;
+}
+.fullHeight {
+  height: 100vh;
+}

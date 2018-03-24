@@ -1,7 +1,18 @@
-<div class="text-center pad-top jumbotron">
-  <h2 *ngIf="!hideHeader" class="input-bottom page-header">Ingredient Recipe Search</h2>
-  <app-search (sendRecipes)="sendRecipes($event)"></app-search>
-</div>
-<div>
-  <app-view-recipe [recipes]="recipe" ></app-view-recipe>
-</div>
+<mat-sidenav-container [ngClass]="{'jumbotron': (!recipe) }">
+  <mat-sidenav #sidenav mode="push" [(opened)]="opened" >
+    <app-side-nav></app-side-nav>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div [ngClass]="{'pad-top' : true,'jumbotron': (!!recipe),'fullHeight': !recipe }">
+      <p><a (click)="sidenav.toggle()"><i class="fas fa-bars fa-2x"></i>
+      </a></p>
+      <div class="text-center">
+        <h2 *ngIf="!hideHeader" class="input-bottom page-header" [innerHTML]=" 'pageTitle' | translate"></h2>
+        <app-search (sendRecipes)="sendRecipes($event)"></app-search>
+      </div>
+    </div>
+    <div [hidden]="!recipe">
+    <app-view-recipe [recipes]="recipe"></app-view-recipe>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

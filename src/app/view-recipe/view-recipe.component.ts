@@ -4,24 +4,39 @@ import {NgbTooltipConfig} from '@ng-bootstrap/ng-bootstrap';
 import {Inject, HostListener } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import {RecipeModel} from "../Models/recipeModel";
+import {AppGlobal} from "../Content/AppGlobal";
+import {TranslateService} from "@ngx-translate/core";
+
+
 @Component({
   selector: 'app-view-recipe',
   templateUrl: './view-recipe.component.html',
   styleUrls: ['./view-recipe.component.css'],
   host: {'(window:scroll)' : 'onWindowScroll()'},
-  providers: [RecipeService, NgbTooltipConfig]
+  providers: [RecipeService, NgbTooltipConfig, AppGlobal]
 })
 export class ViewRecipeComponent implements OnInit {
   @Input() recipes: RecipeModel;
   ingredient = '';
   navIsFixed: boolean;
-  filterValue: String = 'Filter';
-  sortValue: String = 'Sort';
-  constructor(private recipeService: RecipeService, @Inject(DOCUMENT) private document: Document) { }
+  filterValue: String;
+  sortValue: String;
+  constructor(private recipeService: RecipeService,
+              @Inject(DOCUMENT) private document: Document,
+              private appGlobal:AppGlobal,
+              public translate: TranslateService) { }
 
   ngOnInit() {
     this.recipes = new RecipeModel({
       RecipeObject: []
+    });
+    this.translate.setDefaultLang(this.appGlobal.defaultContent);
+    this.translate.get('FilterLabel').subscribe((res: string) => {
+      this.filterValue = res;
+    });
+    this.translate.get('SortLabel').subscribe((res: string) => {
+      console.log(res);
+      this.sortValue = res;
     });
   }
 

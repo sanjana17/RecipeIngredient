@@ -4,12 +4,15 @@ import {RecipeService} from '../recipe.service';
 import {RecipeModel} from '../Models/recipeModel';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import {IngredientCheckDirective} from '../directives/validators/ingredient-check.directive';
+import {AppGlobal} from "../Content/AppGlobal";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.css'],
+  providers: [AppGlobal]
 })
 export class SearchComponent implements OnInit {
   @Output() sendRecipes = new EventEmitter<RecipeModel>();
@@ -23,12 +26,17 @@ export class SearchComponent implements OnInit {
   collapsed: Boolean = true;
   itemsGroup: FormArray;
   hideHeader:Boolean;
-  constructor(private fb: FormBuilder, private recipeService: RecipeService, private spinnerService: Ng4LoadingSpinnerService) { }
+  constructor(private fb: FormBuilder,
+              private recipeService: RecipeService,
+              private spinnerService: Ng4LoadingSpinnerService,
+              public appGlobal:AppGlobal,
+              public translate: TranslateService) { }
 
   ngOnInit() {
     this.myForm = this.fb.group({
         'search': this.fb.array([this.createItem()])
     });
+    this.translate.setDefaultLang(this.appGlobal.defaultContent);
   }
 
   addSearchBox(): void {
