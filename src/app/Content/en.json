@@ -10,5 +10,6 @@
 	"HighToLowLabel": "High to Low",
 	"SeeMoreRecipesLabel": "See more Recipes",
 	"FilterLabel": "Filter",
-	"SortLabel": "Sort"
+	"SortLabel": "Sort",
+  "StoreAvailableLabel": "Available in Play Store and App Store"
 }

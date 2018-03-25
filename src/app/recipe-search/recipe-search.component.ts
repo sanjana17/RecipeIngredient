@@ -17,6 +17,7 @@ export class RecipeSearchComponent implements OnInit {
   public recipe: RecipeModel;
   hideHeader: Boolean = false;
   opened: Boolean;
+  hideBadges: Boolean = false;
   constructor(private recipeService: RecipeService,
               @Inject(DOCUMENT) private document: Document,
               public appGlobal:AppGlobal,
@@ -29,6 +30,12 @@ export class RecipeSearchComponent implements OnInit {
       language = param['language']
     });
     this.translate.setDefaultLang(language || this.appGlobal.defaultContent);
+    if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
+      this.hideBadges = true;
+    }
+    else {
+      this.hideBadges = false;
+    }
   }
   sendRecipes(result) {
     this.recipe = result;
