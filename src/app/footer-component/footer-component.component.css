@@ -1,0 +1,28 @@
+.page-footer{
+  height: 7em;
+}
+@media(min-width: 768px){
+  .page-footer{
+    display: none;
+  }
+}
+.full-height{
+  height: 100%;
+}
+footer{
+  padding: 0;
+  opacity: 0.9;
+  border: 0px;
+}
+
+.mat-card {
+  padding: 1em;
+  text-align: right;
+  border: 0px;
+}
+.badge{
+  margin-bottom: 1em;
+}
+p.title{
+  margin-bottom: 0px !important;
+}

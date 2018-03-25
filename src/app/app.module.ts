@@ -18,6 +18,7 @@ import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {MatSidenavModule, MatInputModule, MatDialogModule, MatCardModule} from "@angular/material";
 import { SideNavComponent, SettingsComponent } from './side-nav/side-nav.component';
 import {NutrientDialogTemplate, NutrientDialogComponent} from './nutrient-dialog/nutrient-dialog.component';
+import { FooterComponentComponent } from './footer-component/footer-component.component';
 
 const appRoutes = [
   {path: '', redirectTo: 'recipeSearch/en', pathMatch: 'full'},
@@ -28,7 +29,7 @@ export function createTranslateLoader(http: HttpClient) {
 }
 @NgModule({
   declarations: [
-    AppComponent, SearchComponent,SettingsComponent, ViewRecipeComponent, RecipeSearchComponent, SideNavComponent, NutrientDialogComponent, NutrientDialogTemplate
+    AppComponent, SearchComponent,SettingsComponent, ViewRecipeComponent, RecipeSearchComponent, SideNavComponent, NutrientDialogComponent, NutrientDialogTemplate, FooterComponentComponent
   ],
   imports: [
     BrowserModule,

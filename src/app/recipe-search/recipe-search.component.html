@@ -4,8 +4,17 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <div [ngClass]="{'pad-top' : true,'jumbotron': (!!recipe),'fullHeight': !recipe }">
-      <p><a (click)="sidenav.toggle()"><i class="fas fa-bars fa-2x"></i>
-      </a></p>
+      <div class="row">
+        <div class="col-sm-1 pad-top">
+        <a (click)="sidenav.toggle()" ><i class="fas fa-bars fa-2x"></i></a>
+        </div>
+        <div class="col-xl-9 col-md-8 col-lg-9 text-right mar-left pad-top">
+        <a class="badge" href='https://play.google.com/store/apps/details?id=io.search.recipesearch&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' width="120px"   height="40px" src='../../assets/images/badgeFooter.jpg'/></a>
+          </div>
+            <div class="col-xs-2">
+        <a class="badge" href='https://play.google.com/store/apps/details?id=io.search.recipesearch&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' width="130px"   height="60px" src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
+            </div>
+      </div>
       <div class="text-center">
         <h2 *ngIf="!hideHeader" class="input-bottom page-header" [innerHTML]=" 'pageTitle' | translate"></h2>
         <app-search (sendRecipes)="sendRecipes($event)"></app-search>

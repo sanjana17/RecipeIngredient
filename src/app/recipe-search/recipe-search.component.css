@@ -16,3 +16,29 @@
 .fullHeight {
   height: 100vh;
 }
+.badge{
+  text-align: right;
+}
+@media (max-width:  768px) {
+  .badge{
+    display: none;
+  }
+}
+.pad-top{
+  padding-top: 0.6em;
+}
+@media(min-width: 1000px){
+   .mar-left{
+     margin-left: 1.5em;
+   }
+}
+@media(min-width: 1435px){
+  .mar-left{
+    margin-left: 6em;
+  }
+}
+@media (min-width: 1025px){
+  .mar-left{
+    margin-left: 2em;
+  }
+}
