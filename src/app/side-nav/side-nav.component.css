@@ -11,3 +11,14 @@
 .width-full {
   width: 100%;
 }
+.mat-form-field{
+  width: 100%;
+}
+
+.list-container{
+  height: 90vh;
+  padding-top: 2em;
+}
+.list-container > button{
+  margin-bottom: 1em !important;
+}

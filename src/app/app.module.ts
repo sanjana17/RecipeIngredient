@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchComponent } from './search/search.component';
+import { environment } from '../environments/environment';
 import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
@@ -16,9 +17,13 @@ import { IngredientCheckDirective } from './directives/validators/ingredient-che
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {MatSidenavModule, MatInputModule, MatDialogModule, MatCardModule} from "@angular/material";
-import { SideNavComponent, SettingsComponent } from './side-nav/side-nav.component';
+import { SideNavComponent, SettingsComponent, LoginComponent } from './side-nav/side-nav.component';
 import {NutrientDialogTemplate, NutrientDialogComponent} from './nutrient-dialog/nutrient-dialog.component';
 import { FooterComponentComponent } from './footer-component/footer-component.component';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import {AngularFirestoreModule} from "angularfire2/firestore";
 
 const appRoutes = [
   {path: '', redirectTo: 'recipeSearch/en', pathMatch: 'full'},
@@ -29,7 +34,7 @@ export function createTranslateLoader(http: HttpClient) {
 }
 @NgModule({
   declarations: [
-    AppComponent, SearchComponent,SettingsComponent, ViewRecipeComponent, RecipeSearchComponent, SideNavComponent, NutrientDialogComponent, NutrientDialogTemplate, FooterComponentComponent
+    AppComponent, SearchComponent,SettingsComponent,LoginComponent, ViewRecipeComponent, RecipeSearchComponent, SideNavComponent, NutrientDialogComponent, NutrientDialogTemplate, FooterComponentComponent
   ],
   imports: [
     BrowserModule,
@@ -41,11 +46,15 @@ export function createTranslateLoader(http: HttpClient) {
     MatCardModule,
     MatTooltipModule,
     MatButtonModule,
+    AngularFirestoreModule,
     MatDialogModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(
       appRoutes, {useHash: true}
     ),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -58,7 +67,7 @@ export function createTranslateLoader(http: HttpClient) {
     NgbModule
   ],
   exports: [ViewRecipeComponent, SearchComponent, MatSidenavModule, MatInputModule, MatDialogModule,MatCardModule],
-  entryComponents: [NutrientDialogTemplate, SettingsComponent],
+  entryComponents: [NutrientDialogTemplate, SettingsComponent, LoginComponent],
   providers: [],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

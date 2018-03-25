@@ -34,6 +34,7 @@
             <app-nutrient-dialog [nutrients]="hit.nutrients"></app-nutrient-dialog>
           <a (click)="handleUrlChange(hit.recipieUrl)">
             <button mat-raised-button color="accent" class="btn btn-success" ngbTooltip="View Website"><i class="material-icons">visibility</i></button></a>
+            <button mat-icon-button (click)="addToFav(hit)"><i [ngClass]="{'fas':hit.favorite,'far':!hit.favorite,'fa-heart':true }"></i></button>
           </div>
         </div>
         <div class="media-row">

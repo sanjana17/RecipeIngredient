@@ -90,6 +90,7 @@ export class RecipeModel {
       tempRecipe['title'] = recipe.recipe.label;
       tempRecipe['recipieUrl'] = recipe.recipe.url;
       tempRecipe['dietLabels'] = recipe.recipe.dietLabels;
+      tempRecipe['fav'] = false;
       recipesList.push(tempRecipe);
       return recipesList;
     }, []);
