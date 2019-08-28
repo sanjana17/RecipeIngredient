@@ -1,0 +1,9 @@
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let nutrient of data.nutrient| slice:0:10">
+    {{nutrient[0]}}
+    <span class="badge">{{nutrient[1]}}</span>
+  </li>
+</ul>
+<div class="text-center">
+<button mat-raised-button color="warn" (click)="onNoClick()">Close</button>
+</div>

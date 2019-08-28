@@ -1,0 +1,11 @@
+<div class="margin-all width-nav containr">
+  <div class="list-container">
+    <p>{{userEmail}}</p>
+    <button mat-raised-button class="mar-bottom" *ngIf="!loginActive" color="link" type="button" class="width-full" (click)="login()">Login</button>
+    <button mat-raised-button class="mar-bottom" *ngIf="!loginActive" color="link" type="button" class="width-full" (click)="register()">Register</button>
+    <button mat-raised-button  class="mar-bottom" [hidden]="!loginActive" color="warn" type="button" class="width-full" (click)="signOut()">SignOut</button>
+  </div>
+  <div class="btn-holder">
+    <button mat-raised-button color="primary" type="button" class="width-full" (click)="openDialog()">Settings</button>
+  </div>
+</div>

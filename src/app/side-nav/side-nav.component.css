@@ -1,0 +1,24 @@
+.list-group-item {
+  border: none;
+}
+.margin-all {
+  margin: 1em;
+
+}
+.width-nav{
+  width: 15em;
+}
+.width-full {
+  width: 100%;
+}
+.mat-form-field{
+  width: 100%;
+}
+
+.list-container{
+  height: 90vh;
+  padding-top: 2em;
+}
+.list-container > button{
+  margin-bottom: 1em !important;
+}

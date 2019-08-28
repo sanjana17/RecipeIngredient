@@ -1,0 +1,15 @@
+{
+	"pageTitle": "Recipe Search",
+	"IngredientLabel": "Ingredient",
+	"IngredientSearchErrorMessage": "please use only alphabets",
+	"RemoveLabel": "Remove",
+	"AddIngredientLabel": "Add New Ingredient",
+	"SearchLabel": "Search",
+	"ReleavenceLabel": "Relevance",
+	"LowToHighLabel": "Low to High",
+	"HighToLowLabel": "High to Low",
+	"SeeMoreRecipesLabel": "See more Recipes",
+	"FilterLabel": "Filter",
+	"SortLabel": "Sort",
+  "StoreAvailableLabel": "Available in Play Store and App Store"
+}

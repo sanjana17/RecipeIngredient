@@ -4,30 +4,78 @@ import {NgbTooltipConfig} from '@ng-bootstrap/ng-bootstrap';
 import {Inject, HostListener } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import {RecipeModel} from "../Models/recipeModel";
+import {AppGlobal} from "../Content/AppGlobal";
+import {TranslateService} from "@ngx-translate/core";
+import { AngularFireDatabase } from 'angularfire2/database';
+import {FirebaseOperation} from "angularfire2/database/interfaces";
+import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
+import {Observable} from "rxjs/Observable";
+
+
 @Component({
   selector: 'app-view-recipe',
   templateUrl: './view-recipe.component.html',
   styleUrls: ['./view-recipe.component.css'],
-  providers: [RecipeService, NgbTooltipConfig]
+  host: {'(window:scroll)' : 'onWindowScroll()'},
+  providers: [RecipeService, NgbTooltipConfig, AppGlobal]
 })
 export class ViewRecipeComponent implements OnInit {
   @Input() recipes: RecipeModel;
   ingredient = '';
+  recipeCollection: AngularFirestoreCollection<RecipeModel>;
+  recipeList: Observable<any>;
   navIsFixed: boolean;
-  constructor(private recipeService: RecipeService, @Inject(DOCUMENT) private document: Document) { }
+  filterValue: String;
+  sortValue: String;
+  constructor(private recipeService: RecipeService,
+              @Inject(DOCUMENT) private document: Document,
+              private appGlobal:AppGlobal,
+              public translate: TranslateService,
+              private db: AngularFireDatabase) { }
 
   ngOnInit() {
-    this.recipes = new RecipeModel({});
+    this.recipes = new RecipeModel({
+      RecipeObject: []
+    });
+    this.translate.setDefaultLang(this.appGlobal.defaultContent);
+    this.translate.get('FilterLabel').subscribe((res: string) => {
+      this.filterValue = res;
+    });
+    this.translate.get('SortLabel').subscribe((res: string) => {
+      console.log(res);
+      this.sortValue = res;
+    });
+
+
   }
 
   getFilterList() {
     return this.recipes.getFilterList();
   }
+  handleUrlChange(url){
+    window.open(url,'_blank');
+  }
 
   getFilterResults(filterType){
+    this.filterValue = filterType;
     this.recipes.getFilteredItem(filterType);
   }
-  @HostListener('window:scroll', [])
+  addToFav(obj){
+    this.db.database.ref('favoriteRecipes/'+ obj.title).set(obj).then(res => {
+      console.log(res);
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+  getSortResults(sortType) {
+    const sortTypeMap = {
+      'ASC': 'Low to High',
+      'DESC': 'High to Low'
+    };
+    this.sortValue = sortTypeMap[sortType];
+    this.recipes.getSortResults(sortType, this.filterValue);
+  }
+
   onWindowScroll() {
     if (!(window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop > 100)) {
       if (this.navIsFixed && window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop < 10) {

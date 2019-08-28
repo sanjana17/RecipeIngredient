@@ -4,28 +4,39 @@ import {RecipeService} from '../recipe.service';
 import {RecipeModel} from '../Models/recipeModel';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import {IngredientCheckDirective} from '../directives/validators/ingredient-check.directive';
+import {AppGlobal} from "../Content/AppGlobal";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.css'],
+  providers: [AppGlobal]
 })
 export class SearchComponent implements OnInit {
   @Output() sendRecipes = new EventEmitter<RecipeModel>();
 
-  recipes: RecipeModel;
+  recipes: RecipeModel = new RecipeModel({
+    RecipeObject:[]
+  });
   inputs: String[]= ['0'];
   ingredients: String;
   public myForm: FormGroup;
   collapsed: Boolean = true;
   itemsGroup: FormArray;
-  constructor(private fb: FormBuilder, private recipeService: RecipeService, private spinnerService: Ng4LoadingSpinnerService) { }
+  hideHeader:Boolean;
+  constructor(private fb: FormBuilder,
+              private recipeService: RecipeService,
+              private spinnerService: Ng4LoadingSpinnerService,
+              public appGlobal:AppGlobal,
+              public translate: TranslateService) { }
 
   ngOnInit() {
     this.myForm = this.fb.group({
         'search': this.fb.array([this.createItem()])
     });
+    this.translate.setDefaultLang(this.appGlobal.defaultContent);
   }
 
   addSearchBox(): void {
@@ -54,7 +65,7 @@ export class SearchComponent implements OnInit {
     this.recipeService.getRecipe(ingredients).subscribe(result => {
       this.spinnerService.hide();
       const count = result['count'] || 0;
-      const recipes = this.getRecipes(result['hits']);
+      const recipes = this.recipes.getRecipes(result['hits']);
       this.sendRecipes.emit(new RecipeModel({
         RecipeObject: recipes,
         count: count,
@@ -62,32 +73,7 @@ export class SearchComponent implements OnInit {
       }));
     });
   }
-  getRecipes(recipes){
-    let recipesList = recipes.reduce((recipesList, recipe) => {
-        let tempRecipe = {};
-        tempRecipe['ingredients'] = recipe.recipe.ingredientLines;
-        tempRecipe['calories'] = recipe.recipe.calories;
-        tempRecipe['nutrients'] = this.getNutrients(recipe.recipe.totalNutrients);
-        tempRecipe['dailyNutrients'] = this.getNutrients(recipe.recipe.totalDaily);
-        tempRecipe['image'] = recipe.recipe.image;
-        tempRecipe['title'] = recipe.recipe.label;
-        tempRecipe['recipieUrl'] = recipe.recipe.url;
-        recipesList.push(tempRecipe);
-        return recipesList;
-    }, []);
-    return recipesList;
-  }
-  getNutrients(nutrients){
-    const nutrientsList = [];
-    Object.keys(nutrients).forEach(nutrientObj => {
-      const tempObj = [];
-      const nutrient = nutrients[nutrientObj];
-      tempObj.push(nutrient['label']);
-      tempObj.push(Number(nutrient['quantity'].toString()).toFixed(2) + ' ' + nutrient['unit']);
-      nutrientsList.push(tempObj);
-    });
-    return nutrientsList;
-  }
+
   removeSearchBox(index) {
     if (index > 0) {
       this.itemsGroup = this.myForm.get('search') as FormArray;
@@ -98,7 +84,6 @@ export class SearchComponent implements OnInit {
       }
     }
   }
-
   toggleCollapse() {
     this.collapsed = !this.collapsed;
   }

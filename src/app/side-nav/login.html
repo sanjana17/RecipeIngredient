@@ -1,0 +1,28 @@
+<h2>Login</h2>
+<form class="container" [formGroup]="myForm" novalidate>
+  <div class="row text-center">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 width-full">
+    <mat-input-container>
+        <input matInput class="width-full" type="text" placeholder="Login" formControlName="login"/>
+    </mat-input-container>
+    </div>
+  </div>
+  <div class="row text-center">
+    <div class="col-md-3"></div>
+  <div class="col-md-6 ">
+    <mat-input-container>
+        <input matInput class="width-full" type="password" placeholder="Password" formControlName="password"/>
+    </mat-input-container>
+  </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-2">
+      <button mat-raised-button color="link" (click)="onNoClick()">Cancel</button>
+    </div>
+    <div class="col-md-2">
+      <button mat-raised-button color="primary" [disabled]="!myForm.valid" (click)="onLoginClick(authLabel)">{{authLabel}}</button>
+    </div>
+  </div>
+</form>
