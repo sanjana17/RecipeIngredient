@@ -8,6 +8,9 @@ import { SearchComponent } from './search/search.component';
 import { environment } from '../environments/environment';
 import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatChipsModule} from '@angular/material/chips';
+
 import {MatButtonModule} from '@angular/material/button';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
@@ -20,10 +23,6 @@ import {MatSidenavModule, MatInputModule, MatDialogModule, MatCardModule} from "
 import { SideNavComponent, SettingsComponent, LoginComponent } from './side-nav/side-nav.component';
 import {NutrientDialogTemplate, NutrientDialogComponent} from './nutrient-dialog/nutrient-dialog.component';
 import { FooterComponentComponent } from './footer-component/footer-component.component';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import {AngularFirestoreModule} from "angularfire2/firestore";
 
 const appRoutes = [
   {path: '', redirectTo: 'recipeSearch/en', pathMatch: 'full'},
@@ -43,18 +42,16 @@ export function createTranslateLoader(http: HttpClient) {
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatChipsModule,
     MatCardModule,
     MatTooltipModule,
+    MatFormFieldModule,
     MatButtonModule,
-    AngularFirestoreModule,
     MatDialogModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(
       appRoutes, {useHash: true}
     ),
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

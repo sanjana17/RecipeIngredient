@@ -6,9 +6,6 @@ import { DOCUMENT } from '@angular/platform-browser';
 import {RecipeModel} from "../Models/recipeModel";
 import {AppGlobal} from "../Content/AppGlobal";
 import {TranslateService} from "@ngx-translate/core";
-import { AngularFireDatabase } from 'angularfire2/database';
-import {FirebaseOperation} from "angularfire2/database/interfaces";
-import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
 import {Observable} from "rxjs/Observable";
 
 
@@ -22,7 +19,6 @@ import {Observable} from "rxjs/Observable";
 export class ViewRecipeComponent implements OnInit {
   @Input() recipes: RecipeModel;
   ingredient = '';
-  recipeCollection: AngularFirestoreCollection<RecipeModel>;
   recipeList: Observable<any>;
   navIsFixed: boolean;
   filterValue: String;
@@ -30,8 +26,7 @@ export class ViewRecipeComponent implements OnInit {
   constructor(private recipeService: RecipeService,
               @Inject(DOCUMENT) private document: Document,
               private appGlobal:AppGlobal,
-              public translate: TranslateService,
-              private db: AngularFireDatabase) { }
+              public translate: TranslateService) { }
 
   ngOnInit() {
     this.recipes = new RecipeModel({
@@ -60,13 +55,13 @@ export class ViewRecipeComponent implements OnInit {
     this.filterValue = filterType;
     this.recipes.getFilteredItem(filterType);
   }
-  addToFav(obj){
-    this.db.database.ref('favoriteRecipes/'+ obj.title).set(obj).then(res => {
-      console.log(res);
-    }).catch(err => {
-      console.log(err);
-    });
-  }
+  // addToFav(obj){
+  //   this.db.database.ref('favoriteRecipes/'+ obj.title).set(obj).then(res => {
+  //     console.log(res);
+  //   }).catch(err => {
+  //     console.log(err);
+  //   });
+  // }
   getSortResults(sortType) {
     const sortTypeMap = {
       'ASC': 'Low to High',

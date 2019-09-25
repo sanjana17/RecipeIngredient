@@ -3,19 +3,18 @@ import {TranslateService} from "@ngx-translate/core";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material";
 import * as crypto from 'crypto-js';
 import {FormBuilder, FormGroup, Validators, FormControl} from "@angular/forms";
-import {AuthService} from "./auth.service";
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 @Component({
   selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',
   styleUrls: ['./side-nav.component.css'],
-  providers: [AuthService]
+  providers: []
 })
 export class SideNavComponent implements OnInit {
   userEmail: String;
   loginActive: Boolean;
-  constructor(public  translate: TranslateService, public dialog: MatDialog, private auth: AuthService, private spinnerService :Ng4LoadingSpinnerService) {
+  constructor(public  translate: TranslateService, public dialog: MatDialog, private spinnerService :Ng4LoadingSpinnerService) {
     console.log(this.translate.getLangs());
   }
 
@@ -25,12 +24,12 @@ export class SideNavComponent implements OnInit {
 
   signOut(){
     this.spinnerService.show();
-      this.auth.signOut().then(res => {
-        this.loginActive = false;
-        this.userEmail = '';
-        localStorage.removeItem('token');
-        this.spinnerService.hide();
-      });
+      // this.auth.signOut().then(res => {
+      //   this.loginActive = false;
+      //   this.userEmail = '';
+      //   localStorage.removeItem('token');
+      //   this.spinnerService.hide();
+      // });
   }
 
   login(){
@@ -94,7 +93,7 @@ export class SettingsComponent {
   selector: 'app-login',
   templateUrl: 'login.html',
   styleUrls: ['./side-nav.component.css'],
-  providers: [AuthService]
+  providers: []
 })
 export class LoginComponent implements OnInit{
   myForm: FormGroup;
@@ -103,7 +102,6 @@ export class LoginComponent implements OnInit{
     public dialogRef: MatDialogRef<LoginComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
-    private authService:AuthService,
     private spinnerService :Ng4LoadingSpinnerService) {
     this.authLabel = data.authLabel;
   }
@@ -123,24 +121,24 @@ export class LoginComponent implements OnInit{
     const loginPassword = this.myForm.value.login +"-"+ this.myForm.value.password;
     let auth;
     let error: String;
-    if(authLabel === 'Login'){
-     auth = this.authService.loginWithEmail(this.myForm.value.login,this.myForm.value.password).then(res => {
-        localStorage.setItem('token',res);
-        this.dialogRef.close({ login: true, email: this.myForm.value.login});
-       this.spinnerService.hide();
-     }).catch(err => {
-        error = err.message;
-     });
-    }
-    else{
-       auth = this.authService.registerWithEmail(this.myForm.value.login,this.myForm.value.password).then(res => {
-         localStorage.setItem('token',res);
-         this.dialogRef.close({ login: true, email: this.myForm.value.login});
-         this.spinnerService.hide();
-       }).catch(err => {
-         error = err.message;
-       });
-    }
+    // if(authLabel === 'Login'){
+    //  auth = this.authService.loginWithEmail(this.myForm.value.login,this.myForm.value.password).then(res => {
+    //     localStorage.setItem('token',res);
+    //     this.dialogRef.close({ login: true, email: this.myForm.value.login});
+    //    this.spinnerService.hide();
+    //  }).catch(err => {
+    //     error = err.message;
+    //  });
+    // }
+    // else{
+    //    auth = this.authService.registerWithEmail(this.myForm.value.login,this.myForm.value.password).then(res => {
+    //      localStorage.setItem('token',res);
+    //      this.dialogRef.close({ login: true, email: this.myForm.value.login});
+    //      this.spinnerService.hide();
+    //    }).catch(err => {
+    //      error = err.message;
+    //    });
+    // }
     console.log(auth);
   }
 

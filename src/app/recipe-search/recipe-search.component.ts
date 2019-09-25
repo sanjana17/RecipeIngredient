@@ -34,7 +34,7 @@ export class RecipeSearchComponent implements OnInit {
       this.hideBadges = true;
     }
     else {
-      this.hideBadges = false;
+      this.hideBadges = true;
     }
   }
   sendRecipes(result) {

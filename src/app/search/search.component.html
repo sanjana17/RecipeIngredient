@@ -1,21 +1,27 @@
 <div id="form-search" #formSearch>
-  <p *ngIf="!myForm.valid" class="text-center danger" [innerHTML]=" 'IngredientSearchErrorMessage' | translate"></p>
+
   <form [formGroup]="myForm" novalidate class="container-fluid text-center" >
     <div  formArrayName="search" *ngFor="let item of myForm.get('search')['controls']; let i = index" class="row">
       <div class="col-md-2"></div>
       <div [formGroupName]="i" class="col-md-8 input-group" [hidden]="i > 1 && !collapsed">
-        <mat-input-container class="md-icon-float">
+        <mat-form-field class="md-icon-float">
         <input matInput type="text" class="width" id="search-{{i}}" placeholder="{{'IngredientLabel' | translate}}" formControlName="name">
+          <a matSuffix *ngIf="myForm.touched && i === 0" (click)="clearSearchBoxes()" class="mar-right" ngbTooltip="clear all"><mat-icon  color="warn" class="fa fa-times" ></mat-icon></a>
+          <!--<a matSuffix *ngIf="i === 0" (click)="enableSpeech()" [ngClass]="{'voice-start' : voiceStarted}"><mat-icon class="fas fa-microphone"></mat-icon></a>-->
           <a matSuffix *ngIf="i > 0" (click)="removeSearchBox(i)"><mat-icon  color="warn" class="fa fa-times" ></mat-icon></a>
-        </mat-input-container>
+          <mat-error *ngIf="!myForm.valid">
+            <p [innerHTML]=" 'IngredientSearchErrorMessage' | translate"></p>
+          </mat-error>
+        </mat-form-field>
       </div>
     </div>
-
     <div class="row">
-      <div class="col-md-3"></div>
+      <div class="col-md-3  "></div>
       <div class="col-md-6 text-center">
         <button (click)="addSearchBox()" mat-raised-button color="primary" [disabled]="inputs.length >= 10" class="btn btn-primary mar-bottom" [innerHTML]=" 'AddIngredientLabel' | translate"></button>
         <button (click)="search()"  mat-raised-button color="primary" [disabled]="!myForm.valid" class="btn btn-primary mar-bottom" [innerHTML]=" 'SearchLabel' | translate"></button>
+        <button type="button" mat-raised-button color="primary" (click)="imageElement.click()">search a photo</button>
+        <input hidden type="file" #imageElement (change)="searchPhoto(false)"/>
       </div>
     </div>
     <div class="row text-center chevron" *ngIf="myForm.get('search')['controls'].length > 2">
@@ -26,4 +32,16 @@
       </div>
     </div>
   </form>
+</div>
+<div class="row text-center">
+  <div class="col-md-1"></div>
+  <div *ngIf="imageSearchData.length > 0" class="col-xs-12 col-md-10  center-justify">
+  <mat-chip-list  ngDefaultControl #chipList>
+    <mat-chip *ngFor="let data of imageSearchData | slice:0:10" [ngClass]="{'back-green':data.score > 0.90, 'back-yellow': data.score > 0.75 && data.score < 0.90, 'back-red': data.score < 0.75}" [selectable]="selectable"
+              [removable]="removable" (remove)="addIngredient(data.description)">
+      {{data.description}}
+      <mat-icon matChipRemove *ngIf="removable"><i class="fas fa-plus-circle"></i></mat-icon>
+    </mat-chip>
+  </mat-chip-list>
+  </div>
 </div>
