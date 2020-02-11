@@ -19,7 +19,8 @@ import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { IngredientCheckDirective } from './directives/validators/ingredient-check.directive';
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
-import {MatSidenavModule, MatInputModule, MatDialogModule, MatCardModule} from "@angular/material";
+
+import {MatSidenavModule, MatInputModule, MatDialogModule, MatCardModule, MatSelectModule} from "@angular/material";
 import { SideNavComponent, SettingsComponent, LoginComponent } from './side-nav/side-nav.component';
 import {NutrientDialogTemplate, NutrientDialogComponent} from './nutrient-dialog/nutrient-dialog.component';
 import { FooterComponentComponent } from './footer-component/footer-component.component';
@@ -47,6 +48,7 @@ export function createTranslateLoader(http: HttpClient) {
     MatTooltipModule,
     MatFormFieldModule,
     MatButtonModule,
+    MatSelectModule,
     MatDialogModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(

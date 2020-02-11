@@ -20,6 +20,11 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
+interface Cuisine {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -35,6 +40,7 @@ matcher: MyErrorStateMatcher;
   recipes: RecipeModel = new RecipeModel({
     RecipeObject: []
   });
+  cuisineType: string;
   selectable: Boolean = true;
   voiceStarted: Boolean = false;
   removable: Boolean = true;
@@ -56,7 +62,8 @@ matcher: MyErrorStateMatcher;
   ngOnInit() {
     const self = this;
     this.myForm = this.fb.group({
-        'search': this.fb.array([this.createItem()])
+        'search': this.fb.array([this.createItem()]),
+        'cuisineType': this.fb.control(null, null)
     });
     this.translate.setDefaultLang(this.appGlobal.defaultContent);
     // setInterval(() => {
@@ -85,6 +92,25 @@ matcher: MyErrorStateMatcher;
       'start'
     );
   }
+  cuisines: Cuisine[] = [
+    {value: 'American', viewValue: 'American'},
+    {value: 'Nordic', viewValue: 'Nordic'},
+    {value: 'Caribbean', viewValue: 'Caribbean'},
+    {value: 'Asian', viewValue: 'Asian'},
+    {value: 'Kosher', viewValue: 'Kosher'},
+    {value: 'South American', viewValue: 'South American'},
+    {value: 'Eastern Europe', viewValue: 'Eastern Europe'},
+    {value: 'Central Europe', viewValue: 'Central Europe'},
+    {value: 'Middle Eastern', viewValue: 'Middle Eastern'},
+    {value: 'British', viewValue: 'British'},
+    {value: 'French', viewValue: 'French'},
+    {value: 'Chinese', viewValue: 'Chinese'},
+    {value: 'Japanese', viewValue: 'Japanese'},
+    {value: 'Indian', viewValue: 'Indian'},
+    {value: 'Italian', viewValue: 'Italian'},
+    {value: 'Mediterranean', viewValue: 'Mediterranean'},
+    {value: 'Mexican', viewValue: 'Mexican'}
+  ];
   addSearchBox(): void {
     const inputLength = this.inputs.length;
     const lastIndex = Number(this.inputs[inputLength - 1]);
@@ -120,7 +146,7 @@ matcher: MyErrorStateMatcher;
   }
   addIngredient(description) {
     this.itemsGroup = this.myForm.get('search') as FormArray;
-    console.log(this.itemsGroup)
+    console.log(this.itemsGroup);
     let descript =  this.itemsGroup.value[0].name;
     descript += description + ',';
     this.itemsGroup.controls[0].setValue({'name': descript});
@@ -137,6 +163,7 @@ matcher: MyErrorStateMatcher;
         ingredients.push(value.name);
         return ingredients;
     }), []);
+    ingredients.push(this.myForm.controls.cuisineType.value);
     this.ingredients = ingredients.concat(',');
     this.recipeService.getRecipe(this.ingredients).subscribe(result => {
       this.spinnerService.hide();
