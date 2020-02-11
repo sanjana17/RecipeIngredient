@@ -6,7 +6,21 @@
       <div [formGroupName]="i" class="col-md-8 input-group" [hidden]="i > 1 && !collapsed">
         <mat-form-field class="md-icon-float">
         <input matInput type="text" class="width" id="search-{{i}}" placeholder="{{'IngredientLabel' | translate}}" formControlName="name">
-          <a matSuffix *ngIf="myForm.touched && i === 0" (click)="clearSearchBoxes()" class="mar-right" ngbTooltip="clear all"><mat-icon  color="warn" class="fa fa-times" ></mat-icon></a>
+          <a matSuffix *ngIf="myForm.touched && i === 0" (click)="clearSearchBoxes('search')" class="mar-right" ngbTooltip="clear all"><mat-icon  color="warn" class="fa fa-times" ></mat-icon></a>
+          <!--<a matSuffix *ngIf="i === 0" (click)="enableSpeech()" [ngClass]="{'voice-start' : voiceStarted}"><mat-icon class="fas fa-microphone"></mat-icon></a>-->
+          <a matSuffix *ngIf="i > 0" (click)="removeSearchBox(i)"><mat-icon  color="warn" class="fa fa-times" ></mat-icon></a>
+          <mat-error *ngIf="!myForm.valid">
+            <p [innerHTML]=" 'IngredientSearchErrorMessage' | translate"></p>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div  formArrayName="exclude" *ngFor="let item of myForm.get('exclude')['controls']; let i = index" class="row" [hidden]="">
+      <div class="col-md-2"></div>
+      <div [formGroupName]="i" class="col-md-8 input-group" [hidden]="i > 1 && !collapsed">
+        <mat-form-field class="md-icon-float">
+          <input matInput type="text" class="width" id="exclude-{{i}}" placeholder="{{'ExcludeIngredientLabel' | translate}}" formControlName="excludeName">
+          <a matSuffix *ngIf="myForm.touched && i === 0" (click)="clearSearchBoxes('exclude')" class="mar-right" ngbTooltip="clear all"><mat-icon  color="warn" class="fa fa-times" ></mat-icon></a>
           <!--<a matSuffix *ngIf="i === 0" (click)="enableSpeech()" [ngClass]="{'voice-start' : voiceStarted}"><mat-icon class="fas fa-microphone"></mat-icon></a>-->
           <a matSuffix *ngIf="i > 0" (click)="removeSearchBox(i)"><mat-icon  color="warn" class="fa fa-times" ></mat-icon></a>
           <mat-error *ngIf="!myForm.valid">
@@ -51,8 +65,9 @@
     </div>
     <div class="row">
       <div class="col-md-3"></div>
-      <div class="col-md-5 text-center">
+      <div class="col-md-6 text-center">
         <button (click)="addSearchBox()" mat-raised-button color="primary" [disabled]="inputs.length >= 10" class="btn btn-primary mar-bottom" [innerHTML]=" 'AddIngredientLabel' | translate"></button>
+        <button (click)="addExclude()" mat-raised-button color="primary" [disabled]="inputs.length >= 10" class="btn btn-primary mar-bottom" [innerHTML]=" 'AddExcludeIngredientLabel' | translate"></button>
         <button (click)="search()"  mat-raised-button color="primary" [disabled]="!myForm.valid" class="btn btn-primary mar-bottom" [innerHTML]=" 'SearchLabel' | translate"></button>
         <button type="button" mat-raised-button color="primary" (click)="imageElement.click()">search a photo</button>
         <input hidden type="file" #imageElement (change)="searchPhoto(false)"/>

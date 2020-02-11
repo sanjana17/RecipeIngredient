@@ -1,9 +1,11 @@
 {
 	"pageTitle": "Recipe Search",
 	"IngredientLabel": "Ingredient",
+	"ExcludeIngredientLabel": "Exclude Ingredient",
 	"IngredientSearchErrorMessage": "please use only alphabets",
 	"RemoveLabel": "Remove",
 	"AddIngredientLabel": "Add New Ingredient",
+	"AddExcludeIngredientLabel": "Add Exclude Ingredient",
 	"SearchLabel": "Search",
 	"ReleavenceLabel": "Relevance",
 	"LowToHighLabel": "Low to High",

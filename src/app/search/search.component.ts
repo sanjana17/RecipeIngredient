@@ -40,11 +40,12 @@ matcher: MyErrorStateMatcher;
   recipes: RecipeModel = new RecipeModel({
     RecipeObject: []
   });
-  cuisineType: string;
   selectable: Boolean = true;
+  hideExclude: Boolean = true;
   voiceStarted: Boolean = false;
   removable: Boolean = true;
   inputs: String[]= ['0'];
+  excludes: String;
   ingredients: String;
   alreadyTriggered: Boolean = false;
   public myForm: FormGroup;
@@ -106,6 +107,7 @@ matcher: MyErrorStateMatcher;
     const self = this;
     this.myForm = this.fb.group({
         'search': this.fb.array([this.createItem()]),
+        'exclude': this.fb.array([this.createExcludeItem()]),
         'cuisineType': this.fb.control(null, null),
         'dishType': this.fb.control(null, null),
         'mealType': this.fb.control(null, null)
@@ -147,6 +149,17 @@ matcher: MyErrorStateMatcher;
       this.inputs.push((lastIndex + 1).toString());
     }
   }
+  addExclude(): void {
+    this.hideExclude = false;
+    const inputLength = this.inputs.length;
+    const lastIndex = Number(this.inputs[inputLength - 1]);
+    console.log(lastIndex);
+    if (lastIndex < 10) {
+      this.itemsGroup = this.myForm.get('exclude') as FormArray;
+      this.itemsGroup.push(this.createExcludeItem());
+      this.inputs.push((lastIndex + 1).toString());
+    }
+  }
   searchPhoto(fromEvent) {
     const self = this;
     if (fromEvent) {
@@ -178,23 +191,44 @@ matcher: MyErrorStateMatcher;
     descript += description + ',';
     this.itemsGroup.controls[0].setValue({'name': descript});
   }
+
+  addExcludeIngredient(description) {
+    this.itemsGroup = this.myForm.get('search') as FormArray;
+    console.log(this.itemsGroup);
+    let descript =  this.itemsGroup.value[0].name;
+    descript += description + ',';
+    this.itemsGroup.controls[0].setValue({'name': descript});
+  }
+
   private createItem() {
     return this.fb.group({
       name: ['', Validators.compose([IngredientCheckDirective(/[^a-zA-Z, ]/g)])]
     });
   }
+  private createExcludeItem() {
+    return this.fb.group({
+      excludeName: ['', Validators.compose([IngredientCheckDirective(/[^a-zA-Z, ]/g)])]
+    });
+  }
+
   search() {
     const values = this.myForm;
     this.ingredients = '';
-    const ingredients = this.myForm.controls.search.value.reduce(((ingredients, value) => {
-        ingredients.push(value.name);
-        return ingredients;
+    const ingredients = this.myForm.controls.search.value.reduce(((ingredientsArr, value) => {
+      ingredientsArr.push(value.name);
+        return ingredientsArr;
     }), []);
+    const excludeIngredients = this.myForm.controls.exclude.value.reduce(((excludes, value) => {
+      excludes.push(value.excludeName);
+        return excludes;
+    }), []);
+    this.excludes = excludeIngredients.length > 0 ? '&excluded=' + excludeIngredients.join('&excluded=') : '';
+console.log(this.excludes)
     ingredients.push(this.myForm.controls.cuisineType.value);
     ingredients.push(this.myForm.controls.mealType.value);
     ingredients.push(this.myForm.controls.dishType.value);
     this.ingredients = ingredients.concat(',');
-    this.recipeService.getRecipe(this.ingredients).subscribe(result => {
+    this.recipeService.getRecipe(this.ingredients, this.excludes).subscribe(result => {
       this.spinnerService.hide();
       const count = result['count'] || 0;
       this.imageSearchData = [];
@@ -222,12 +256,16 @@ matcher: MyErrorStateMatcher;
     this.collapsed = !this.collapsed;
   }
 
-  clearSearchBoxes() {
-    this.itemsGroup = this.myForm.get('search') as FormArray;
+  clearSearchBoxes(name) {
+    this.itemsGroup = this.myForm.get(name) as FormArray;
     for (let i = this.itemsGroup.length  ; i > 0; i--) {
        this.itemsGroup.removeAt(i);
     }
-    this.itemsGroup.controls[0].setValue({'name': ''});
+    if (name === 'search') {
+      this.itemsGroup.controls[0].setValue({'name': ''});
+    }else {
+      this.itemsGroup.controls[0].setValue({'excludeName': ''});
+    }
   }
   getMobileOperatingSystem() {
     const userAgent = navigator.userAgent || navigator.vendor || window['opera'];
