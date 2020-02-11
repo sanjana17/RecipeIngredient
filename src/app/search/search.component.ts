@@ -59,11 +59,56 @@ matcher: MyErrorStateMatcher;
               private vision: GoogleCloudVisionService,
               private ref: ChangeDetectorRef) { }
 
+  cuisines: Cuisine[] = [
+    {value: 'American', viewValue: 'American'},
+    {value: 'Nordic', viewValue: 'Nordic'},
+    {value: 'Caribbean', viewValue: 'Caribbean'},
+    {value: 'Asian', viewValue: 'Asian'},
+    {value: 'Kosher', viewValue: 'Kosher'},
+    {value: 'South American', viewValue: 'South American'},
+    {value: 'Eastern Europe', viewValue: 'Eastern Europe'},
+    {value: 'Central Europe', viewValue: 'Central Europe'},
+    {value: 'Middle Eastern', viewValue: 'Middle Eastern'},
+    {value: 'British', viewValue: 'British'},
+    {value: 'French', viewValue: 'French'},
+    {value: 'Chinese', viewValue: 'Chinese'},
+    {value: 'Japanese', viewValue: 'Japanese'},
+    {value: 'Indian', viewValue: 'Indian'},
+    {value: 'Italian', viewValue: 'Italian'},
+    {value: 'Mediterranean', viewValue: 'Mediterranean'},
+    {value: 'Mexican', viewValue: 'Mexican'}
+  ];
+  dishTypes: Cuisine[] = [
+    {value: 'Bread', viewValue: 'Bread'},
+    {value: 'Cereals', viewValue: 'Cereals'},
+    {value: 'Condiments and sauces', viewValue: 'Condiments and sauces'},
+    {value: 'Drinks', viewValue: 'Drinks'},
+    {value: 'Desserts', viewValue: 'Desserts'},
+    {value: 'Main course', viewValue: 'Main course'},
+    {value: 'Pancake', viewValue: 'Pancake'},
+    {value: 'Preps', viewValue: 'Preps'},
+    {value: 'Preserve', viewValue: 'Preserve'},
+    {value: 'Salad', viewValue: 'Salad'},
+    {value: 'Sandwiches', viewValue: 'Sandwiches'},
+    {value: 'Side dish', viewValue: 'Side dish'},
+    {value: 'Soup', viewValue: 'Soup'},
+    {value: 'Starter', viewValue: 'Starter'},
+    {value: 'Sweets', viewValue: 'Sweets'}
+  ];
+  mealTypes: Cuisine[] = [
+    {value: 'Breakfast', viewValue: 'Breakfast'},
+    {value: 'Lunch', viewValue: 'Lunch'},
+    {value: 'Snack', viewValue: 'Snack'},
+    {value: 'Dinner', viewValue: 'Dinner'},
+  ];
+
   ngOnInit() {
     const self = this;
     this.myForm = this.fb.group({
         'search': this.fb.array([this.createItem()]),
-        'cuisineType': this.fb.control(null, null)
+        'cuisineType': this.fb.control(null, null),
+        'dishType': this.fb.control(null, null),
+        'mealType': this.fb.control(null, null)
     });
     this.translate.setDefaultLang(this.appGlobal.defaultContent);
     // setInterval(() => {
@@ -92,25 +137,7 @@ matcher: MyErrorStateMatcher;
       'start'
     );
   }
-  cuisines: Cuisine[] = [
-    {value: 'American', viewValue: 'American'},
-    {value: 'Nordic', viewValue: 'Nordic'},
-    {value: 'Caribbean', viewValue: 'Caribbean'},
-    {value: 'Asian', viewValue: 'Asian'},
-    {value: 'Kosher', viewValue: 'Kosher'},
-    {value: 'South American', viewValue: 'South American'},
-    {value: 'Eastern Europe', viewValue: 'Eastern Europe'},
-    {value: 'Central Europe', viewValue: 'Central Europe'},
-    {value: 'Middle Eastern', viewValue: 'Middle Eastern'},
-    {value: 'British', viewValue: 'British'},
-    {value: 'French', viewValue: 'French'},
-    {value: 'Chinese', viewValue: 'Chinese'},
-    {value: 'Japanese', viewValue: 'Japanese'},
-    {value: 'Indian', viewValue: 'Indian'},
-    {value: 'Italian', viewValue: 'Italian'},
-    {value: 'Mediterranean', viewValue: 'Mediterranean'},
-    {value: 'Mexican', viewValue: 'Mexican'}
-  ];
+
   addSearchBox(): void {
     const inputLength = this.inputs.length;
     const lastIndex = Number(this.inputs[inputLength - 1]);
@@ -164,6 +191,8 @@ matcher: MyErrorStateMatcher;
         return ingredients;
     }), []);
     ingredients.push(this.myForm.controls.cuisineType.value);
+    ingredients.push(this.myForm.controls.mealType.value);
+    ingredients.push(this.myForm.controls.dishType.value);
     this.ingredients = ingredients.concat(',');
     this.recipeService.getRecipe(this.ingredients).subscribe(result => {
       this.spinnerService.hide();
